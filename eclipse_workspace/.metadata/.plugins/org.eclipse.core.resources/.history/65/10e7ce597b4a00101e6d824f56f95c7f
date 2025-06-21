@@ -1,0 +1,485 @@
+/**
+ */
+package petri.impl;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import petri.PetriPackage;
+import petri.arcType;
+import petri.arcsPonderes;
+import petri.place;
+import petri.transition;
+
+/**
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>arcs Ponderes</b></em>'.
+ * <!-- end-user-doc -->
+ * <p>
+ * The following features are implemented:
+ * </p>
+ * <ul>
+ *   <li>{@link petri.impl.arcsPonderesImpl#getPoids <em>Poids</em>}</li>
+ *   <li>{@link petri.impl.arcsPonderesImpl#getArcType <em>Arc Type</em>}</li>
+ *   <li>{@link petri.impl.arcsPonderesImpl#getPlace <em>Place</em>}</li>
+ *   <li>{@link petri.impl.arcsPonderesImpl#getTransition <em>Transition</em>}</li>
+ *   <li>{@link petri.impl.arcsPonderesImpl#isReadArc <em>Read Arc</em>}</li>
+ * </ul>
+ *
+ * @generated
+ */
+public class arcsPonderesImpl extends petriElementImpl implements arcsPonderes {
+	/**
+	 * The default value of the '{@link #getPoids() <em>Poids</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPoids()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int POIDS_EDEFAULT = 1;
+
+	/**
+	 * The cached value of the '{@link #getPoids() <em>Poids</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPoids()
+	 * @generated
+	 * @ordered
+	 */
+	protected int poids = POIDS_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getArcType() <em>Arc Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getArcType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final arcType ARC_TYPE_EDEFAULT = arcType.placeToTransition;
+
+	/**
+	 * The cached value of the '{@link #getArcType() <em>Arc Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getArcType()
+	 * @generated
+	 * @ordered
+	 */
+	protected arcType arcType = ARC_TYPE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getPlace() <em>Place</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPlace()
+	 * @generated
+	 * @ordered
+	 */
+	protected place place;
+
+	/**
+	 * The cached value of the '{@link #getTransition() <em>Transition</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getTransition()
+	 * @generated
+	 * @ordered
+	 */
+	protected transition transition;
+
+	/**
+	 * The default value of the '{@link #isReadArc() <em>Read Arc</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isReadArc()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean READ_ARC_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isReadArc() <em>Read Arc</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isReadArc()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean readArc = READ_ARC_EDEFAULT;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected arcsPonderesImpl() {
+		super();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return PetriPackage.Literals.ARCS_PONDERES;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public int getPoids() {
+		return poids;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setPoids(int newPoids) {
+		int oldPoids = poids;
+		poids = newPoids;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PetriPackage.ARCS_PONDERES__POIDS, oldPoids, poids));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public arcType getArcType() {
+		return arcType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setArcType(arcType newArcType) {
+		arcType oldArcType = arcType;
+		arcType = newArcType == null ? ARC_TYPE_EDEFAULT : newArcType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PetriPackage.ARCS_PONDERES__ARC_TYPE, oldArcType, arcType));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public place getPlace() {
+		if (place != null && place.eIsProxy()) {
+			InternalEObject oldPlace = (InternalEObject)place;
+			place = (place)eResolveProxy(oldPlace);
+			if (place != oldPlace) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PetriPackage.ARCS_PONDERES__PLACE, oldPlace, place));
+			}
+		}
+		return place;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public place basicGetPlace() {
+		return place;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetPlace(place newPlace, NotificationChain msgs) {
+		place oldPlace = place;
+		place = newPlace;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PetriPackage.ARCS_PONDERES__PLACE, oldPlace, newPlace);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setPlace(place newPlace) {
+		if (newPlace != place) {
+			NotificationChain msgs = null;
+			if (place != null)
+				msgs = ((InternalEObject)place).eInverseRemove(this, PetriPackage.PLACE__LINKS_TO_ARCS, place.class, msgs);
+			if (newPlace != null)
+				msgs = ((InternalEObject)newPlace).eInverseAdd(this, PetriPackage.PLACE__LINKS_TO_ARCS, place.class, msgs);
+			msgs = basicSetPlace(newPlace, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PetriPackage.ARCS_PONDERES__PLACE, newPlace, newPlace));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public transition getTransition() {
+		if (transition != null && transition.eIsProxy()) {
+			InternalEObject oldTransition = (InternalEObject)transition;
+			transition = (transition)eResolveProxy(oldTransition);
+			if (transition != oldTransition) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PetriPackage.ARCS_PONDERES__TRANSITION, oldTransition, transition));
+			}
+		}
+		return transition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public transition basicGetTransition() {
+		return transition;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetTransition(transition newTransition, NotificationChain msgs) {
+		transition oldTransition = transition;
+		transition = newTransition;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PetriPackage.ARCS_PONDERES__TRANSITION, oldTransition, newTransition);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setTransition(transition newTransition) {
+		if (newTransition != transition) {
+			NotificationChain msgs = null;
+			if (transition != null)
+				msgs = ((InternalEObject)transition).eInverseRemove(this, PetriPackage.TRANSITION__LINKS_TO_ARCS, transition.class, msgs);
+			if (newTransition != null)
+				msgs = ((InternalEObject)newTransition).eInverseAdd(this, PetriPackage.TRANSITION__LINKS_TO_ARCS, transition.class, msgs);
+			msgs = basicSetTransition(newTransition, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PetriPackage.ARCS_PONDERES__TRANSITION, newTransition, newTransition));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean isReadArc() {
+		return readArc;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setReadArc(boolean newReadArc) {
+		boolean oldReadArc = readArc;
+		readArc = newReadArc;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PetriPackage.ARCS_PONDERES__READ_ARC, oldReadArc, readArc));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case PetriPackage.ARCS_PONDERES__PLACE:
+				if (place != null)
+					msgs = ((InternalEObject)place).eInverseRemove(this, PetriPackage.PLACE__LINKS_TO_ARCS, place.class, msgs);
+				return basicSetPlace((place)otherEnd, msgs);
+			case PetriPackage.ARCS_PONDERES__TRANSITION:
+				if (transition != null)
+					msgs = ((InternalEObject)transition).eInverseRemove(this, PetriPackage.TRANSITION__LINKS_TO_ARCS, transition.class, msgs);
+				return basicSetTransition((transition)otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case PetriPackage.ARCS_PONDERES__PLACE:
+				return basicSetPlace(null, msgs);
+			case PetriPackage.ARCS_PONDERES__TRANSITION:
+				return basicSetTransition(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case PetriPackage.ARCS_PONDERES__POIDS:
+				return getPoids();
+			case PetriPackage.ARCS_PONDERES__ARC_TYPE:
+				return getArcType();
+			case PetriPackage.ARCS_PONDERES__PLACE:
+				if (resolve) return getPlace();
+				return basicGetPlace();
+			case PetriPackage.ARCS_PONDERES__TRANSITION:
+				if (resolve) return getTransition();
+				return basicGetTransition();
+			case PetriPackage.ARCS_PONDERES__READ_ARC:
+				return isReadArc();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case PetriPackage.ARCS_PONDERES__POIDS:
+				setPoids((Integer)newValue);
+				return;
+			case PetriPackage.ARCS_PONDERES__ARC_TYPE:
+				setArcType((arcType)newValue);
+				return;
+			case PetriPackage.ARCS_PONDERES__PLACE:
+				setPlace((place)newValue);
+				return;
+			case PetriPackage.ARCS_PONDERES__TRANSITION:
+				setTransition((transition)newValue);
+				return;
+			case PetriPackage.ARCS_PONDERES__READ_ARC:
+				setReadArc((Boolean)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case PetriPackage.ARCS_PONDERES__POIDS:
+				setPoids(POIDS_EDEFAULT);
+				return;
+			case PetriPackage.ARCS_PONDERES__ARC_TYPE:
+				setArcType(ARC_TYPE_EDEFAULT);
+				return;
+			case PetriPackage.ARCS_PONDERES__PLACE:
+				setPlace((place)null);
+				return;
+			case PetriPackage.ARCS_PONDERES__TRANSITION:
+				setTransition((transition)null);
+				return;
+			case PetriPackage.ARCS_PONDERES__READ_ARC:
+				setReadArc(READ_ARC_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case PetriPackage.ARCS_PONDERES__POIDS:
+				return poids != POIDS_EDEFAULT;
+			case PetriPackage.ARCS_PONDERES__ARC_TYPE:
+				return arcType != ARC_TYPE_EDEFAULT;
+			case PetriPackage.ARCS_PONDERES__PLACE:
+				return place != null;
+			case PetriPackage.ARCS_PONDERES__TRANSITION:
+				return transition != null;
+			case PetriPackage.ARCS_PONDERES__READ_ARC:
+				return readArc != READ_ARC_EDEFAULT;
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuilder result = new StringBuilder(super.toString());
+		result.append(" (poids: ");
+		result.append(poids);
+		result.append(", arcType: ");
+		result.append(arcType);
+		result.append(", readArc: ");
+		result.append(readArc);
+		result.append(')');
+		return result.toString();
+	}
+
+} //arcsPonderesImpl

@@ -1,0 +1,58 @@
+package petri.validation;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+
+
+/**
+ * Réalise la validation d'un EObject issu de SimplePDL (en théorie, d'un process).
+ * Cet classe visite le modÃ¨le et utilise les caseXXX pour rediriger l'algo vers la
+ * bonne méthode.
+ * Attention, lorsqu'une classe est un parent il faut aller faire la visite des enfants
+ * manuellement (cf. caseProcess typiquement).
+ * 
+ * La classe Switch exige un paramÃ¨tre de généricité (et gÃ¨re une partie de la visite Ã 
+ * base de comparaison Ã  null). Ici le paramÃ¨tre est un booléen mais en réalité on ne
+ * s'en sert pas...
+ * 
+ * @author Guillaume Dupont
+ * @version 0.1
+ */
+public class SimplePDLValidator extends SimplepdlSwitch<Boolean> {
+	/**
+	 * Expression réguliÃ¨re qui correspond Ã  un identifiant bien formé.
+	 */
+	private static final String IDENT_REGEX = "^[A-Za-z_][A-Za-z0-9_]*$";
+	
+	/**
+	 * Résultat de la validation (état interne réinitialisé Ã  chaque nouvelle validation).
+	 */
+	private ValidationResult result = null;
+	
+	/**
+	 * Construire un validateur
+	 */
+	public SimplePDLValidator() {}
+	
+
+	/**
+	 * Cas par défaut, lorsque l'objet visité ne correspond pas Ã  un des autres cas.
+	 * Cette méthode est aussi appelée lorsqu'une méthode renvoie null (comme une sorte de
+	 * fallback).
+	 * On pourrait implémenter le switch différemment, en ne renvoyant null dans les autres
+	 * méthodes que si la contrainte ne sert Ã  rien, et se servir de cette méthode pour
+	 * identifier les éléments étrangers (qui de toute faÃ§on ne doivent pas exister).
+	 * C'est aussi la méthode appelée si on ne redéfini pas un des caseXXX.
+	 * @param object objet visité
+	 * @return résultat, null ici
+	 */
+	@Override
+	public Boolean defaultCase(EObject object) {
+		return null;
+	}
+	
+	
+}

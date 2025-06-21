@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<section name="java.lang.Class">
+		<item key="replaceBarOpen" value="false"/>
+		<list key="findhistory">
+			<item value="getPlace"/>
+			<item value="getTransition"/>
+			<item value="getTransitionName"/>
+			<item value="createArc"/>
+			<item value="createTransition"/>
+			<item value="createPlace"/>
+			<item value="SimplePDL2Petri"/>
+			<item value="place"/>
+			<item value="guidance"/>
+			<item value="registe"/>
+			<item value="SimplepdlPackageImpl"/>
+			<item value="register"/>
+			<item value="WorkSequence"/>
+			<item value="caseWorkSequence"/>
+			<item value="Work"/>
+		</list>
+		<list key="replacehistory">
+			<item value="simplepdltopetri"/>
+			<item value="é"/>
+			<item value="typeArc"/>
+			<item value="SimplePDL"/>
+			<item value="PDL1"/>
+		</list>
+	</section>
+</section>

@@ -1,0 +1,133 @@
+-- @path SimplePDL=/fr.n7.simplePDL/SimplePDL.ecore
+-- @path PetriNet=/fr.n7.petriNet/PetriNet.ecore
+
+module simplepdltopetri;
+create OUT : Petri from IN : SimplePDL;
+
+
+-- Règle principale : Process -> petriNet
+rule Process2PetriNet {
+    from p : SimplePDL!Process
+    to net : Petri!petriNet (
+        nom <- p.name,
+        petrielements <- p.processelement->collect(e | e)->flatten()
+    )
+}
+
+-- WorkDefinition → 3 places, 2 transitions, 4 arcs
+rule WorkDefinition2PetriPlaceStarted {
+    from wd : SimplePDL!WorkDefinition
+    to
+        started : Petri!place (
+            nom <- wd.name + '_started',
+            jetons <- 0
+        )
+}
+
+rule WorkDefinition2PetriPlaceReady {
+    from wd : SimplePDL!WorkDefinition
+    to
+        ready : Petri!place (
+            nom <- wd.name + '_ready',
+            jetons <- 1
+        )
+}
+
+rule WorkDefinition2PetriPlaceFinished {
+    from wd : SimplePDL!WorkDefinition
+    to
+        finished : Petri!place (
+            nom <- wd.name + '_finished',
+            jetons <- 0
+        )
+}
+
+rule WorkDefinition2PetriTransitionStart {
+    from wd : SimplePDL!WorkDefinition
+    to
+        t_start : Petri!transition (
+            nom <- 'start_' + wd.name
+        )
+}
+
+rule WorkDefinition2PetriTransitionFinish {
+    from wd : SimplePDL!WorkDefinition
+    to
+        t_finish : Petri!transition (
+            nom <- 'finish_' + wd.name
+        )
+}
+
+rule WorkDefinition2PetriArc1 {
+    from wd : SimplePDL!WorkDefinition
+    to
+        arc1 : Petri!arcsPonderes (
+            place <- thisModule.resolvePlace(wd, 'ready'),
+            transition <- thisModule.resolveTransition(wd, 'start'),
+            typeArc <- #placeToTransition,
+            readArc <- false
+        )
+}
+
+rule WorkDefinition2PetriArc2 {
+    from wd : SimplePDL!WorkDefinition
+    to
+        arc2 : Petri!arcsPonderes (
+            place <- thisModule.resolvePlace(wd, 'started'),
+            transition <- thisModule.resolveTransition(wd, 'start'),
+            typeArc <- #transitionToPlace,
+            readArc <- false
+        )
+}
+
+rule WorkDefinition2PetriArc3 {
+    from wd : SimplePDL!WorkDefinition
+    to
+        arc3 : Petri!arcsPonderes (
+            place <- thisModule.resolvePlace(wd, 'started'),
+            transition <- thisModule.resolveTransition(wd, 'finish'),
+            typeArc <- #placeToTransition,
+            readArc <- false
+        )
+}
+
+rule WorkDefinition2PetriArc4 {
+    from wd : SimplePDL!WorkDefinition
+    to
+        arc4 : Petri!arcsPonderes (
+            place <- thisModule.resolvePlace(wd, 'finished'),
+            transition <- thisModule.resolveTransition(wd, 'finish'),
+            typeArc <- #transitionToPlace,
+            readArc <- false
+        )
+}
+
+-- Helpers pour retrouver les places et transitions par nom
+helper def: resolvePlace(wd : SimplePDL!WorkDefinition, suffix : String) : Petri!place =
+    Petri!place.allInstances()->any(p | p.nom = wd.name + '_' + suffix);
+
+helper def: resolveTransition(wd : SimplePDL!WorkDefinition, suffix : String) : Petri!transition =
+    Petri!transition.allInstances()->any(t | t.nom = suffix + '_' + wd.name);
+
+-- WorkSequence → 1 arc
+rule WorkSequence2Petri {
+    from ws : SimplePDL!WorkSequence
+    to arc_ws : Petri!arcsPonderes (
+        poids <- 1,
+        readArc <- true,
+        typeArc <- #placeToTransition,
+        place <- if ws.linkType = #finishToStart or ws.linkType = #finishToFinish then
+            thisModule.resolvePlace(ws.predecessor, 'finished')
+        else
+            thisModule.resolvePlace(ws.predecessor, 'started')
+        endif,
+        transition <- if ws.linkType = #finishToStart or ws.linkType = #startToStart then
+            thisModule.resolveTransition(ws.successor, 'start')
+        else
+            thisModule.resolveTransition(ws.successor, 'finish')
+        endif
+    )
+}
+
+
+

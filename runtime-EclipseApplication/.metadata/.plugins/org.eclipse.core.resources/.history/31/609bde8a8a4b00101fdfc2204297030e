@@ -1,0 +1,9 @@
+process ex1 {
+	wd a needs Ordinateur(5)
+	wd b
+	wd c needs Ordinateur(48)
+	ws s2s from a to b
+	ws f2f from b to c
+	note "Je fais un test"
+	res Ordinateur quantity 5
+}

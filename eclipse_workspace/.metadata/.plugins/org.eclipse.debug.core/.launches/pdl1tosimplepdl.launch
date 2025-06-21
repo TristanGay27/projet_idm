@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.m2m.atl.adt.launching.atlTransformation">
+    <stringAttribute key="ATL File Name" value="/fr.n7.pdl1tosimplepdlatl/pdl1tosimplepdl.atl"/>
+    <stringAttribute key="ATL VM" value="EMF-specific VM"/>
+    <booleanAttribute key="IS_REFINING" value="false"/>
+    <mapAttribute key="Input">
+        <mapEntry key="IN" value="PDL1"/>
+    </mapAttribute>
+    <mapAttribute key="Libs"/>
+    <mapAttribute key="Output">
+        <mapEntry key="OUT" value="SimplePDL"/>
+    </mapAttribute>
+    <mapAttribute key="Path">
+        <mapEntry key="PDL1" value="/fr.n7.pdl1/model/generated/PDL1.ecore"/>
+        <mapEntry key="SimplePDL" value="/fr.n7.simplePDL/SimplePDL.ecore"/>
+    </mapAttribute>
+</launchConfiguration>

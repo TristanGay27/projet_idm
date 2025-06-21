@@ -1,0 +1,147 @@
+package simplepdl.manip;
+
+import java.io.IOException;
+import java.util.Map;
+
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
+
+import petri.*;
+import simplepdl.*;
+
+public class SimplePDLToPetriNet {
+
+    public static void main(String[] args) throws IOException {
+
+        // Enregistrement des métamodèles
+        SimplepdlPackage.eINSTANCE.eClass();
+        PetriPackage.eINSTANCE.eClass();
+
+        // Configuration EMF pour les fichiers .xmi
+        Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
+        Map<String, Object> m = reg.getExtensionToFactoryMap();
+        m.put("xmi", new XMIResourceFactoryImpl());
+
+        ResourceSet resSet = new ResourceSetImpl();
+
+        // Charger le modèle SimplePDL
+        URI inputURI = URI.createURI("models/SimplePDLCreator_Created_Process.xmi");
+        Resource inputResource = resSet.getResource(inputURI, true);
+        Process process = (Process) inputResource.getContents().get(0);
+
+        // Créer le modèle Petri
+        PetriFactory pf = PetriFactory.eINSTANCE;
+        PetriNet petriNet = pf.createPetriNet();
+        petriNet.setName("Petri_" + process.getName());
+
+        // Transformer les WorkDefinitions
+        for (ProcessElement element : process.getProcessElement()) {
+            if (element instanceof WorkDefinition) {
+                WorkDefinition wd = (WorkDefinition) element;
+
+                // Places
+                Place ready = pf.createPlace();
+                ready.setName("Ready_" + wd.getName());
+                ready.setTokens(1);
+                petriNet.getElements().add(ready);
+
+                Place finished = pf.createPlace();
+                finished.setName("Finished_" + wd.getName());
+                finished.setTokens(0);
+                petriNet.getElements().add(finished);
+
+                // Transitions
+                Transition start = pf.createTransition();
+                start.setName("Start_" + wd.getName());
+                petriNet.getElements().add(start);
+
+                Transition finish = pf.createTransition();
+                finish.setName("Finish_" + wd.getName());
+                petriNet.getElements().add(finish);
+
+                // Arcs
+                petriNet.getElements().add(createArc(pf, ready, start, 1));
+                petriNet.getElements().add(createArc(pf, start, finished, 1));
+            }
+        }
+
+        // Transformer les WorkSequences
+        for (ProcessElement element : process.getProcessElement()) {
+            if (element instanceof WorkSequence) {
+                WorkSequence ws = (WorkSequence) element;
+                String pred = ws.getPredecessor().getName();
+                String succ = ws.getSuccessor().getName();
+
+                Transition source = null;
+                Place target = null;
+
+                switch (ws.getLinkType()) {
+                    case FINISH_TO_START:
+                        source = findTransition(petriNet, "Finish_" + pred);
+                        target = findPlace(petriNet, "Ready_" + succ);
+                        break;
+                    case START_TO_START:
+                        source = findTransition(petriNet, "Start_" + pred);
+                        target = findPlace(petriNet, "Ready_" + succ);
+                        break;
+                    case FINISH_TO_FINISH:
+                        source = findTransition(petriNet, "Finish_" + pred);
+                        target = findPlace(petriNet, "Finished_" + succ);
+                        break;
+                    case START_TO_FINISH:
+                        source = findTransition(petriNet, "Start_" + pred);
+                        target = findPlace(petriNet, "Finished_" + succ);
+                        break;
+                }
+
+                if (source != null && target != null) {
+                    petriNet.getElements().add(createArc(pf, source, target, 1));
+                }
+            }
+        }
+
+        // Sauvegarde du fichier généré
+        URI outputURI = URI.createURI("models/PetriNet_Transformed.xmi");
+        Resource outputResource = resSet.createResource(outputURI);
+        outputResource.getContents().add(petriNet);
+        outputResource.save(null);
+
+        System.out.println("✔ Transformation terminée : PetriNet_Transformed.xmi");
+    }
+
+    private static Arc createArc(PetriFactory pf, PetriElement source, PetriElement target, int poids) {
+        Arc arc = pf.createArc();
+        arc.setPoids(poids);
+
+        if (source instanceof Place && target instanceof Transition) {
+            arc.setPlace((Place) source);
+            arc.setTransition((Transition) target);
+            arc.setArcType(arcType.PLACE_TO_TRANSITION);
+        } else if (source instanceof Transition && target instanceof Place) {
+            arc.setTransition((Transition) source);
+            arc.setPlace((Place) target);
+            arc.setArcType(arcType.TRANSITION_TO_PLACE);
+        } else {
+            throw new IllegalArgumentException("Arc invalide entre : " + source.getName() + " et " + target.getName());
+        }
+
+        return arc;
+    }
+
+    private static Transition findTransition(PetriNet net, String name) {
+        for (PetriElement e : net.getElements()) {
+            if (e instanceof Transition && name.equals(e.getName())) return (Transition) e;
+        }
+        return null;
+    }
+
+    private static Place findPlace(PetriNet net, String name) {
+        for (PetriElement e : net.getElements()) {
+            if (e instanceof Place && name.equals(e.getName())) return (Place) e;
+        }
+        return null;
+    }
+}

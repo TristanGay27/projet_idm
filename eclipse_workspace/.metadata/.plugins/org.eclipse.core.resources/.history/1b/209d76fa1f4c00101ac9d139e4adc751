@@ -1,0 +1,102 @@
+-- @path SimplePDL=/fr.n7.simplePDL/SimplePDL.ecore
+-- @path PetriNet=/fr.n7.petriNet/PetriNet.ecore
+
+module simplepdltopetri;
+create OUT : Petri from IN : SimplePDL;
+
+-- Règle principale : Process -> petriNet
+rule Process2PetriNet {
+    from
+        p : SimplePDL!Process
+    to
+        net : Petri!petriNet (
+            nom <- p.name,
+            petrielements <- Petri!petriElement.allInstances()
+        )
+}
+
+-- Helper pour retrouver le Process d’un ProcessElement
+helper context SimplePDL!ProcessElement 
+def: getProcess() : SimplePDL!Process =
+    SimplePDL!Process.allInstances()->select(p | p.processelement->includes(self));
+
+
+-- WorkDefinition → 3 places, 2 transitions, 4 arcs
+rule WorkDefinition2Petri {
+    from
+        wd : SimplePDL!WorkDefinition
+    to
+        -- Places
+        ready : Petri!place (
+            nom <- wd.name + '_ready',
+            jetons <- 1
+        ),
+        started : Petri!place (
+            nom <- wd.name + '_started',
+            jetons <- 0
+        ),
+        finished : Petri!place (
+            nom <- wd.name + '_finished',
+            jetons <- 0
+        ),
+
+        -- Transitions
+        t_start : Petri!transition (
+            nom <- 'start_' + wd.name
+        ),
+        t_finish : Petri!transition (
+            nom <- 'finish_' + wd.name
+        ),
+
+        -- Arcs
+        arc1 : Petri!arcsPonderes (
+            place <- ready,
+            transition <- t_start,
+            typeArc <- #placeToTransition,
+            readArc <- false
+        ),
+        arc2 : Petri!arcsPonderes (
+            place <- started,
+            transition <- t_start,
+            typeArc <- #transitionToPlace,
+            readArc <- false
+        ),
+        arc3 : Petri!arcsPonderes (
+            place <- started,
+            transition <- t_finish,
+            typeArc <- #placeToTransition,
+            readArc <- false
+        ),
+        arc4 : Petri!arcsPonderes (
+            place <- finished,
+            transition <- t_finish,
+            typeArc <- #transitionToPlace,
+            readArc <- false
+        )
+}
+
+
+rule WorkSequence2Petri {
+    from ws : SimplePDL!WorkSequence
+    to arc_ws : Petri!arcsPonderes (
+        poids <- 1,
+        readArc <- true,
+        typeArc <- #placeToTransition,
+
+        -- Source dépend du type de lien
+        place <- 
+            if ws.linkType = #finishToStart or ws.linkType = #finishToFinish then
+                thisModule.resolveTemp(ws.predecessor, 'finished')
+            else
+                thisModule.resolveTemp(ws.predecessor, 'started')
+            endif,
+
+        -- Target dépend aussi du type de lien
+        transition <- 
+            if ws.linkType = #finishToStart or ws.linkType = #startToStart then
+                thisModule.resolveTemp(ws.successor, 'start')
+            else
+                thisModule.resolveTemp(ws.successor, 'finish')
+            endif
+    )
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<petri:petriNet
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:petri="http://petri"
+    nom="sameName">
+  <petrielements
+      xsi:type="petri:place"
+      nom="p1"
+      linksToArcs="//@petrielements.4"/>
+  <petrielements
+      xsi:type="petri:place"
+      nom="p1"
+      linksToArcs="//@petrielements.5 //@petrielements.6"/>
+  <petrielements
+      xsi:type="petri:transition"
+      nom="t1"
+      linksToArcs="//@petrielements.4 //@petrielements.5"/>
+  <petrielements
+      xsi:type="petri:transition"
+      nom="t1"
+      linksToArcs="//@petrielements.6"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      place="//@petrielements.0"
+      transition="//@petrielements.2"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      typeArc="transitionToPlace"
+      place="//@petrielements.1"
+      transition="//@petrielements.2"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      place="//@petrielements.1"
+      transition="//@petrielements.3"/>
+</petri:petriNet>

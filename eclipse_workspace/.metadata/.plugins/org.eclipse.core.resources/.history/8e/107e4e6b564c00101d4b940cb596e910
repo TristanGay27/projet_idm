@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<petri:petriNet
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:petri="http://petri"
+    nom="badIntervalle">
+  <petrielements
+      xsi:type="petri:place"
+      nom="p1"
+      jetons="1"/>
+</petri:petriNet>

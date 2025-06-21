@@ -1,0 +1,37 @@
+[comment encoding = UTF-8 /]
+[module toDot('http://simplepdl')]
+
+[template public processToDOT(aProcess : Process)]
+[comment @main/]
+[file (aProcess.name + '.dot', false, 'UTF-8')]
+digraph [aProcess.name/] {
+[let wds : OrderedSet(WorkDefinition) = aProcess.getWDs()]
+  [for (wd : WorkDefinition | wds)]
+    [for (ws : WorkSequence | wd.linksToPredecessors)]
+		[ws.predecessor.name/] -> [wd.name/] [ '[' /]arrowhead=vee label=[ws.linkType.toDOTLabel()/][ ']' /] 
+    [/for]
+  [/for]
+[/let]
+}
+[/file]
+[/template]
+
+[query public getWDs(p: Process) : OrderedSet(WorkDefinition) = 
+	p.processelement->select( e | e.oclIsTypeOf(WorkDefinition) )
+		->collect( e | e.oclAsType(WorkDefinition) )
+		->asOrderedSet()
+/]
+
+[query public toDOTLabel(link: WorkSequenceType) : String =
+	if link = WorkSequenceType::startToStart then
+		's2s'
+	else if link = WorkSequenceType::startToFinish then
+		's2f'
+	else if link = WorkSequenceType::finishToStart then
+		'f2s'
+	else if link = WorkSequenceType::finishToFinish then
+		'f2f'
+	else
+		'unknown'
+	endif endif endif endif
+/]

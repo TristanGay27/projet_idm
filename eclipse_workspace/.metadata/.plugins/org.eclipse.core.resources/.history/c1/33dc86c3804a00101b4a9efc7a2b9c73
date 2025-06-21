@@ -1,0 +1,302 @@
+/**
+ */
+package petri.impl;
+
+import java.util.Collection;
+
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
+
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
+import petri.PetriPackage;
+import petri.arcsPonderes;
+import petri.intervalle;
+import petri.transition;
+
+/**
+ * <!-- begin-user-doc -->
+ * An implementation of the model object '<em><b>transition</b></em>'.
+ * <!-- end-user-doc -->
+ * <p>
+ * The following features are implemented:
+ * </p>
+ * <ul>
+ *   <li>{@link petri.impl.transitionImpl#getNom <em>Nom</em>}</li>
+ *   <li>{@link petri.impl.transitionImpl#getIntervalle <em>Intervalle</em>}</li>
+ *   <li>{@link petri.impl.transitionImpl#getLinksToArcs <em>Links To Arcs</em>}</li>
+ * </ul>
+ *
+ * @generated
+ */
+public class transitionImpl extends petriElementImpl implements transition {
+	/**
+	 * The default value of the '{@link #getNom() <em>Nom</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNom()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String NOM_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getNom() <em>Nom</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getNom()
+	 * @generated
+	 * @ordered
+	 */
+	protected String nom = NOM_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getIntervalle() <em>Intervalle</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIntervalle()
+	 * @generated
+	 * @ordered
+	 */
+	protected intervalle intervalle;
+
+	/**
+	 * The cached value of the '{@link #getLinksToArcs() <em>Links To Arcs</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getLinksToArcs()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<arcsPonderes> linksToArcs;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected transitionImpl() {
+		super();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	protected EClass eStaticClass() {
+		return PetriPackage.Literals.TRANSITION;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getNom() {
+		return nom;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setNom(String newNom) {
+		String oldNom = nom;
+		nom = newNom;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PetriPackage.TRANSITION__NOM, oldNom, nom));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public intervalle getIntervalle() {
+		if (intervalle != null && intervalle.eIsProxy()) {
+			InternalEObject oldIntervalle = (InternalEObject)intervalle;
+			intervalle = (intervalle)eResolveProxy(oldIntervalle);
+			if (intervalle != oldIntervalle) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PetriPackage.TRANSITION__INTERVALLE, oldIntervalle, intervalle));
+			}
+		}
+		return intervalle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public intervalle basicGetIntervalle() {
+		return intervalle;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setIntervalle(intervalle newIntervalle) {
+		intervalle oldIntervalle = intervalle;
+		intervalle = newIntervalle;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PetriPackage.TRANSITION__INTERVALLE, oldIntervalle, intervalle));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<arcsPonderes> getLinksToArcs() {
+		if (linksToArcs == null) {
+			linksToArcs = new EObjectWithInverseResolvingEList<arcsPonderes>(arcsPonderes.class, this, PetriPackage.TRANSITION__LINKS_TO_ARCS, PetriPackage.ARCS_PONDERES__TRANSITION);
+		}
+		return linksToArcs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case PetriPackage.TRANSITION__LINKS_TO_ARCS:
+				return ((InternalEList<InternalEObject>)(InternalEList<?>)getLinksToArcs()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case PetriPackage.TRANSITION__LINKS_TO_ARCS:
+				return ((InternalEList<?>)getLinksToArcs()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case PetriPackage.TRANSITION__NOM:
+				return getNom();
+			case PetriPackage.TRANSITION__INTERVALLE:
+				if (resolve) return getIntervalle();
+				return basicGetIntervalle();
+			case PetriPackage.TRANSITION__LINKS_TO_ARCS:
+				return getLinksToArcs();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case PetriPackage.TRANSITION__NOM:
+				setNom((String)newValue);
+				return;
+			case PetriPackage.TRANSITION__INTERVALLE:
+				setIntervalle((intervalle)newValue);
+				return;
+			case PetriPackage.TRANSITION__LINKS_TO_ARCS:
+				getLinksToArcs().clear();
+				getLinksToArcs().addAll((Collection<? extends arcsPonderes>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+			case PetriPackage.TRANSITION__NOM:
+				setNom(NOM_EDEFAULT);
+				return;
+			case PetriPackage.TRANSITION__INTERVALLE:
+				setIntervalle((intervalle)null);
+				return;
+			case PetriPackage.TRANSITION__LINKS_TO_ARCS:
+				getLinksToArcs().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case PetriPackage.TRANSITION__NOM:
+				return NOM_EDEFAULT == null ? nom != null : !NOM_EDEFAULT.equals(nom);
+			case PetriPackage.TRANSITION__INTERVALLE:
+				return intervalle != null;
+			case PetriPackage.TRANSITION__LINKS_TO_ARCS:
+				return linksToArcs != null && !linksToArcs.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuilder result = new StringBuilder(super.toString());
+		result.append(" (nom: ");
+		result.append(nom);
+		result.append(')');
+		return result.toString();
+	}
+
+} //transitionImpl

@@ -1,0 +1,145 @@
+/**
+ */
+package petri;
+
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>arcs Ponderes</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link petri.arcsPonderes#getPoids <em>Poids</em>}</li>
+ *   <li>{@link petri.arcsPonderes#getTypeArc <em>Type Arc</em>}</li>
+ *   <li>{@link petri.arcsPonderes#getPlace <em>Place</em>}</li>
+ *   <li>{@link petri.arcsPonderes#getTransition <em>Transition</em>}</li>
+ *   <li>{@link petri.arcsPonderes#isReadArc <em>Read Arc</em>}</li>
+ * </ul>
+ *
+ * @see petri.PetriPackage#getarcsPonderes()
+ * @model
+ * @generated
+ */
+public interface arcsPonderes extends petriElement {
+	/**
+	 * Returns the value of the '<em><b>Poids</b></em>' attribute.
+	 * The default value is <code>"1"</code>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Poids</em>' attribute.
+	 * @see #setPoids(int)
+	 * @see petri.PetriPackage#getarcsPonderes_Poids()
+	 * @model default="1" required="true"
+	 * @generated
+	 */
+	int getPoids();
+
+	/**
+	 * Sets the value of the '{@link petri.arcsPonderes#getPoids <em>Poids</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Poids</em>' attribute.
+	 * @see #getPoids()
+	 * @generated
+	 */
+	void setPoids(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Type Arc</b></em>' attribute.
+	 * The literals are from the enumeration {@link petri.arcType}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Type Arc</em>' attribute.
+	 * @see petri.arcType
+	 * @see #setTypeArc(arcType)
+	 * @see petri.PetriPackage#getarcsPonderes_TypeArc()
+	 * @model required="true"
+	 * @generated
+	 */
+	arcType getTypeArc();
+
+	/**
+	 * Sets the value of the '{@link petri.arcsPonderes#getTypeArc <em>Type Arc</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Type Arc</em>' attribute.
+	 * @see petri.arcType
+	 * @see #getTypeArc()
+	 * @generated
+	 */
+	void setTypeArc(arcType value);
+
+	/**
+	 * Returns the value of the '<em><b>Place</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link petri.place#getLinksToArcs <em>Links To Arcs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Place</em>' reference.
+	 * @see #setPlace(place)
+	 * @see petri.PetriPackage#getarcsPonderes_Place()
+	 * @see petri.place#getLinksToArcs
+	 * @model opposite="linksToArcs" required="true"
+	 * @generated
+	 */
+	place getPlace();
+
+	/**
+	 * Sets the value of the '{@link petri.arcsPonderes#getPlace <em>Place</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Place</em>' reference.
+	 * @see #getPlace()
+	 * @generated
+	 */
+	void setPlace(place value);
+
+	/**
+	 * Returns the value of the '<em><b>Transition</b></em>' reference.
+	 * It is bidirectional and its opposite is '{@link petri.transition#getLinksToArcs <em>Links To Arcs</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Transition</em>' reference.
+	 * @see #setTransition(transition)
+	 * @see petri.PetriPackage#getarcsPonderes_Transition()
+	 * @see petri.transition#getLinksToArcs
+	 * @model opposite="linksToArcs" required="true"
+	 * @generated
+	 */
+	transition getTransition();
+
+	/**
+	 * Sets the value of the '{@link petri.arcsPonderes#getTransition <em>Transition</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Transition</em>' reference.
+	 * @see #getTransition()
+	 * @generated
+	 */
+	void setTransition(transition value);
+
+	/**
+	 * Returns the value of the '<em><b>Read Arc</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Read Arc</em>' attribute.
+	 * @see #setReadArc(boolean)
+	 * @see petri.PetriPackage#getarcsPonderes_ReadArc()
+	 * @model required="true"
+	 * @generated
+	 */
+	boolean isReadArc();
+
+	/**
+	 * Sets the value of the '{@link petri.arcsPonderes#isReadArc <em>Read Arc</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Read Arc</em>' attribute.
+	 * @see #isReadArc()
+	 * @generated
+	 */
+	void setReadArc(boolean value);
+
+} // arcsPonderes

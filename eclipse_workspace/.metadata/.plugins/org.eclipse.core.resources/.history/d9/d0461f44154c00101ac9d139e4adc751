@@ -1,0 +1,134 @@
+-- @path SimplePDL=/fr.n7.simplePDL/SimplePDL.ecore
+-- @path PetriNet=/fr.n7.petriNet/PetriNet.ecore
+
+module simplepdltopetri;
+create OUT : petri from IN : simplepdl;
+
+-- Transformation principale : un Process devient un petriNet
+rule Process2PetriNet {
+    from
+        p : simplepdl!Process
+    to
+        pn : petri!petriNet (
+            nom <- p.name,
+            petrielements <- Sequence {
+                p.workElements->collect(e | thisModule.mapElement(e)).flatten()
+            }->flatten()
+        )
+}
+
+-- Mapping polymorphe pour tous les ProcessElement
+lazy rule mapElement {
+    from e : simplepdl!ProcessElement
+    to result : Sequence(petri!petriElement)
+    do {
+        if (e.oclIsTypeOf(simplepdl!WorkDefinition)) {
+            result <- thisModule.WorkDefinition2Petri(e.oclAsType(simplepdl!WorkDefinition));
+        } else if (e.oclIsTypeOf(simplepdl!WorkSequence)) {
+            result <- thisModule.WorkSequence2Petri(e.oclAsType(simplepdl!WorkSequence));
+        } else if (e.oclIsTypeOf(simplepdl!Ressources)) {
+            -- Ignored, unless you want to transform the definition into Petri places
+            result <- Sequence{};
+        } else {
+            result <- Sequence{}; -- Other types like Guidance ignored
+        }
+    }
+}
+
+-- Transformation d’un WorkDefinition
+rule WorkDefinition2Petri {
+    from
+        wd : simplepdl!WorkDefinition
+    to
+        ready : petri!place (
+            nom <- wd.name + '_ready',
+            jetons <- 1
+        ),
+        started : petri!place (
+            nom <- wd.name + '_started',
+            jetons <- 0
+        ),
+        finished : petri!place (
+            nom <- wd.name + '_finished',
+            jetons <- 0
+        ),
+        t_start : petri!transition (
+            nom <- 'start_' + wd.name
+        ),
+        t_finish : petri!transition (
+            nom <- 'finish_' + wd.name
+        ),
+
+        arc1 : petri!arcsPonderes (
+            poids <- 1,
+            typeArc <- #placeToTransition,
+            place <- ready,
+            transition <- t_start,
+            readArc <- false
+        ),
+        arc2 : petri!arcsPonderes (
+            poids <- 1,
+            typeArc <- #transitionToPlace,
+            place <- started,
+            transition <- t_start,
+            readArc <- false
+        ),
+        arc3 : petri!arcsPonderes (
+            poids <- 1,
+            typeArc <- #placeToTransition,
+            place <- started,
+            transition <- t_finish,
+            readArc <- false
+        ),
+        arc4 : petri!arcsPonderes (
+            poids <- 1,
+            typeArc <- #transitionToPlace,
+            place <- finished,
+            transition <- t_finish,
+            readArc <- false
+        )
+}
+
+-- Transformation des dépendances WorkSequence
+rule WorkSequence2Petri {
+    from
+        ws : simplepdl!WorkSequence
+    to
+        arc : petri!arcsPonderes (
+            poids <- 1,
+            readArc <- false,
+            typeArc <- #placeToTransition,
+            place <- thisModule.getPlaceFor(ws),
+            transition <- thisModule.getTransitionFor(ws)
+        )
+}
+
+-- Méthode auxiliaire pour récupérer la Place selon le type
+helper context simplepdltopetri def : getPlaceFor(ws : simplepdl!WorkSequence) : petri!place =
+    if ws.linkType = simplepdl!WorkSequenceType::startToStart then
+        thisModule.resolvePlace(ws.predecessor.name + '_started')
+    else if ws.linkType = simplepdl!WorkSequenceType::finishToStart then
+        thisModule.resolvePlace(ws.predecessor.name + '_finished')
+    else if ws.linkType = simplepdl!WorkSequenceType::startToFinish then
+        thisModule.resolvePlace(ws.predecessor.name + '_started')
+    else
+        thisModule.resolvePlace(ws.predecessor.name + '_finished')
+    endif
+;
+
+-- Transition cible
+helper context simplepdltopetri def : getTransitionFor(ws : simplepdl!WorkSequence) : petri!transition =
+    if ws.linkType = simplepdl!WorkSequenceType::startToStart or
+       ws.linkType = simplepdl!WorkSequenceType::finishToStart then
+        thisModule.resolveTransition('start_' + ws.successor.name)
+    else
+        thisModule.resolveTransition('finish_' + ws.successor.name)
+    endif
+;
+
+-- Résolution d’une place ou d’une transition par nom
+helper def : resolvePlace(name : String) : petri!place =
+    petri!place.allInstances()->any(p | p.nom = name);
+
+helper def : resolveTransition(name : String) : petri!transition =
+    petri!transition.allInstances()->any(t | t.nom = name);

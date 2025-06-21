@@ -1,0 +1,69 @@
+/**
+ */
+package petri;
+
+import org.eclipse.emf.ecore.EObject;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>intervalle</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * </p>
+ * <ul>
+ *   <li>{@link petri.intervalle#getBinf <em>Binf</em>}</li>
+ *   <li>{@link petri.intervalle#getBsup <em>Bsup</em>}</li>
+ * </ul>
+ *
+ * @see petri.PetriPackage#getintervalle()
+ * @model
+ * @generated
+ */
+public interface intervalle extends EObject {
+	/**
+	 * Returns the value of the '<em><b>Binf</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Binf</em>' attribute.
+	 * @see #setBinf(int)
+	 * @see petri.PetriPackage#getintervalle_Binf()
+	 * @model required="true"
+	 * @generated
+	 */
+	int getBinf();
+
+	/**
+	 * Sets the value of the '{@link petri.intervalle#getBinf <em>Binf</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Binf</em>' attribute.
+	 * @see #getBinf()
+	 * @generated
+	 */
+	void setBinf(int value);
+
+	/**
+	 * Returns the value of the '<em><b>Bsup</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Bsup</em>' attribute.
+	 * @see #setBsup(int)
+	 * @see petri.PetriPackage#getintervalle_Bsup()
+	 * @model
+	 * @generated
+	 */
+	int getBsup();
+
+	/**
+	 * Sets the value of the '{@link petri.intervalle#getBsup <em>Bsup</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Bsup</em>' attribute.
+	 * @see #getBsup()
+	 * @generated
+	 */
+	void setBsup(int value);
+
+} // intervalle

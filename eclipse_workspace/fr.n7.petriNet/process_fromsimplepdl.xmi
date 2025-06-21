@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<petri:petriNet xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:petri="http://petri" nom="model">
+  <petrielements xsi:type="petri:place" nom="Programmation_ready" jetons="1" linksToArcs="//@petrielements.5"/>
+  <petrielements xsi:type="petri:place" nom="Programmation_started" linksToArcs="//@petrielements.6 //@petrielements.7"/>
+  <petrielements xsi:type="petri:place" nom="Programmation_finished" linksToArcs="//@petrielements.8 //@petrielements.39"/>
+  <petrielements xsi:type="petri:transition" nom="Programmation_start" linksToArcs="//@petrielements.5 //@petrielements.6 //@petrielements.40"/>
+  <petrielements xsi:type="petri:transition" nom="Programmation_finish" linksToArcs="//@petrielements.7 //@petrielements.8"/>
+  <petrielements xsi:type="petri:arcsPonderes" place="//@petrielements.0" transition="//@petrielements.3"/>
+  <petrielements xsi:type="petri:arcsPonderes" typeArc="transitionToPlace" place="//@petrielements.1" transition="//@petrielements.3"/>
+  <petrielements xsi:type="petri:arcsPonderes" place="//@petrielements.1" transition="//@petrielements.4"/>
+  <petrielements xsi:type="petri:arcsPonderes" typeArc="transitionToPlace" place="//@petrielements.2" transition="//@petrielements.4"/>
+  <petrielements xsi:type="petri:place" nom="RedactionTests_ready" jetons="1" linksToArcs="//@petrielements.14"/>
+  <petrielements xsi:type="petri:place" nom="RedactionTests_started" linksToArcs="//@petrielements.15 //@petrielements.16"/>
+  <petrielements xsi:type="petri:place" nom="RedactionTests_finished" linksToArcs="//@petrielements.17"/>
+  <petrielements xsi:type="petri:transition" nom="RedactionTests_start" linksToArcs="//@petrielements.14 //@petrielements.15 //@petrielements.37"/>
+  <petrielements xsi:type="petri:transition" nom="RedactionTests_finish" linksToArcs="//@petrielements.16 //@petrielements.17 //@petrielements.39"/>
+  <petrielements xsi:type="petri:arcsPonderes" place="//@petrielements.9" transition="//@petrielements.12"/>
+  <petrielements xsi:type="petri:arcsPonderes" typeArc="transitionToPlace" place="//@petrielements.10" transition="//@petrielements.12"/>
+  <petrielements xsi:type="petri:arcsPonderes" place="//@petrielements.10" transition="//@petrielements.13"/>
+  <petrielements xsi:type="petri:arcsPonderes" typeArc="transitionToPlace" place="//@petrielements.11" transition="//@petrielements.13"/>
+  <petrielements xsi:type="petri:place" nom="RedactionDoc_ready" jetons="1" linksToArcs="//@petrielements.23"/>
+  <petrielements xsi:type="petri:place" nom="RedactionDoc_started" linksToArcs="//@petrielements.24 //@petrielements.25"/>
+  <petrielements xsi:type="petri:place" nom="RedactionDoc_finished" linksToArcs="//@petrielements.26"/>
+  <petrielements xsi:type="petri:transition" nom="RedactionDoc_start" linksToArcs="//@petrielements.23 //@petrielements.24 //@petrielements.36"/>
+  <petrielements xsi:type="petri:transition" nom="RedactionDoc_finish" linksToArcs="//@petrielements.25 //@petrielements.26 //@petrielements.38"/>
+  <petrielements xsi:type="petri:arcsPonderes" place="//@petrielements.18" transition="//@petrielements.21"/>
+  <petrielements xsi:type="petri:arcsPonderes" typeArc="transitionToPlace" place="//@petrielements.19" transition="//@petrielements.21"/>
+  <petrielements xsi:type="petri:arcsPonderes" place="//@petrielements.19" transition="//@petrielements.22"/>
+  <petrielements xsi:type="petri:arcsPonderes" typeArc="transitionToPlace" place="//@petrielements.20" transition="//@petrielements.22"/>
+  <petrielements xsi:type="petri:place" nom="Conception_ready" jetons="1" linksToArcs="//@petrielements.32"/>
+  <petrielements xsi:type="petri:place" nom="Conception_started" linksToArcs="//@petrielements.33 //@petrielements.34 //@petrielements.36 //@petrielements.37"/>
+  <petrielements xsi:type="petri:place" nom="Conception_finished" linksToArcs="//@petrielements.35 //@petrielements.38 //@petrielements.40"/>
+  <petrielements xsi:type="petri:transition" nom="Conception_start" linksToArcs="//@petrielements.32 //@petrielements.33"/>
+  <petrielements xsi:type="petri:transition" nom="Conception_finish" linksToArcs="//@petrielements.34 //@petrielements.35"/>
+  <petrielements xsi:type="petri:arcsPonderes" place="//@petrielements.27" transition="//@petrielements.30"/>
+  <petrielements xsi:type="petri:arcsPonderes" typeArc="transitionToPlace" place="//@petrielements.28" transition="//@petrielements.30"/>
+  <petrielements xsi:type="petri:arcsPonderes" place="//@petrielements.28" transition="//@petrielements.31"/>
+  <petrielements xsi:type="petri:arcsPonderes" typeArc="transitionToPlace" place="//@petrielements.29" transition="//@petrielements.31"/>
+  <petrielements xsi:type="petri:arcsPonderes" place="//@petrielements.28" transition="//@petrielements.21" readArc="true"/>
+  <petrielements xsi:type="petri:arcsPonderes" place="//@petrielements.28" transition="//@petrielements.12" readArc="true"/>
+  <petrielements xsi:type="petri:arcsPonderes" place="//@petrielements.29" transition="//@petrielements.22" readArc="true"/>
+  <petrielements xsi:type="petri:arcsPonderes" place="//@petrielements.2" transition="//@petrielements.13" readArc="true"/>
+  <petrielements xsi:type="petri:arcsPonderes" place="//@petrielements.29" transition="//@petrielements.3" readArc="true"/>
+</petri:petriNet>

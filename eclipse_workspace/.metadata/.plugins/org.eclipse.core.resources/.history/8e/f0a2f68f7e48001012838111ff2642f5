@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<petri:petriNet
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:petri="http://petri"
+    xsi:schemaLocation="http://petri PetriNet.ecore"
+    nom="saisons">
+  <petrielements
+      xsi:type="petri:place"
+      nom="Printemps">
+    <jetons>1</jetons>
+  </petrielements>
+  <petrielements
+      xsi:type="petri:place"
+      nom="Eté">
+    <jetons>0</jetons>
+  </petrielements>
+  <petrielements
+      xsi:type="petri:place"
+      nom="Automne">
+    <jetons>0</jetons>
+  </petrielements>
+  <petrielements
+      xsi:type="petri:place"
+      nom="Hiver">
+    <jetons>0</jetons>
+  </petrielements>
+</petri:petriNet>

@@ -1,0 +1,37 @@
+digraph saisons {
+   rankdir=LR;
+
+   // Places
+       Printemps [label="Printemps\n(1)", shape=circle];
+       Ete [label="Ete\n(0)", shape=circle];
+       Automne [label="Automne\n(0)", shape=circle];
+       Hiver [label="Hiver\n(0)", shape=circle];
+
+   // Transitions
+       printToEte [
+           label="printToEte",
+           shape=box, style=filled, fillcolor=gray
+       ];
+       EteToAutomne [
+           label="EteToAutomne",
+           shape=box, style=filled, fillcolor=gray
+       ];
+       AutomneToHiver [
+           label="AutomneToHiver",
+           shape=box, style=filled, fillcolor=gray
+       ];
+       HiverToPrint [
+           label="HiverToPrint",
+           shape=box, style=filled, fillcolor=gray
+       ];
+
+   // Arcs
+           Printemps -> printToEte;
+           printToEte -> Ete;
+           Ete -> EteToAutomne;
+           EteToAutomne -> Automne;
+           Automne -> AutomneToHiver;
+           AutomneToHiver -> Hiver;
+           Hiver -> HiverToPrint;
+           HiverToPrint -> Printemps;
+}

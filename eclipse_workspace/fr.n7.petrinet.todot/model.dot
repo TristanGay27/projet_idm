@@ -1,0 +1,75 @@
+digraph model {
+   rankdir=LR;
+
+   // Places
+       Programmation_ready [label="Programmation_ready\n(1)", shape=circle];
+       Programmation_started [label="Programmation_started\n(0)", shape=circle];
+       Programmation_finished [label="Programmation_finished\n(0)", shape=circle];
+       RedactionTests_ready [label="RedactionTests_ready\n(1)", shape=circle];
+       RedactionTests_started [label="RedactionTests_started\n(0)", shape=circle];
+       RedactionTests_finished [label="RedactionTests_finished\n(0)", shape=circle];
+       RedactionDoc_ready [label="RedactionDoc_ready\n(1)", shape=circle];
+       RedactionDoc_started [label="RedactionDoc_started\n(0)", shape=circle];
+       RedactionDoc_finished [label="RedactionDoc_finished\n(0)", shape=circle];
+       Conception_ready [label="Conception_ready\n(1)", shape=circle];
+       Conception_started [label="Conception_started\n(0)", shape=circle];
+       Conception_finished [label="Conception_finished\n(0)", shape=circle];
+
+	// Transitions
+	    Programmation_start [
+	        label="Programmation_start",
+	        shape=box, style=filled, fillcolor=gray
+	    ];
+	    Programmation_finish [
+	        label="Programmation_finish",
+	        shape=box, style=filled, fillcolor=gray
+	    ];
+	    RedactionTests_start [
+	        label="RedactionTests_start",
+	        shape=box, style=filled, fillcolor=gray
+	    ];
+	    RedactionTests_finish [
+	        label="RedactionTests_finish",
+	        shape=box, style=filled, fillcolor=gray
+	    ];
+	    RedactionDoc_start [
+	        label="RedactionDoc_start",
+	        shape=box, style=filled, fillcolor=gray
+	    ];
+	    RedactionDoc_finish [
+	        label="RedactionDoc_finish",
+	        shape=box, style=filled, fillcolor=gray
+	    ];
+	    Conception_start [
+	        label="Conception_start",
+	        shape=box, style=filled, fillcolor=gray
+	    ];
+	    Conception_finish [
+	        label="Conception_finish",
+	        shape=box, style=filled, fillcolor=gray
+	    ];
+
+
+   // Arcs
+           Programmation_ready -> Programmation_start;
+           Programmation_start -> Programmation_started;
+           Programmation_started -> Programmation_finish;
+           Programmation_finish -> Programmation_finished;
+           RedactionTests_ready -> RedactionTests_start;
+           RedactionTests_start -> RedactionTests_started;
+           RedactionTests_started -> RedactionTests_finish;
+           RedactionTests_finish -> RedactionTests_finished;
+           RedactionDoc_ready -> RedactionDoc_start;
+           RedactionDoc_start -> RedactionDoc_started;
+           RedactionDoc_started -> RedactionDoc_finish;
+           RedactionDoc_finish -> RedactionDoc_finished;
+           Conception_ready -> Conception_start;
+           Conception_start -> Conception_started;
+           Conception_started -> Conception_finish;
+           Conception_finish -> Conception_finished;
+           Conception_started -> RedactionDoc_start [label="1", style=dashed];
+           Conception_started -> RedactionTests_start [label="1", style=dashed];
+           Conception_finished -> RedactionDoc_finish [label="1", style=dashed];
+           Programmation_finished -> RedactionTests_finish [label="1", style=dashed];
+           Conception_finished -> Programmation_start [label="1", style=dashed];
+}

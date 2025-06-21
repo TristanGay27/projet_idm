@@ -1,0 +1,30 @@
+[comment encoding = UTF-8 /]
+[module toDOT('http://petri')]
+
+[template public generateDotFile(net : petriNet)]
+[comment @main template to generate .dot from Petri net /]
+digraph [net.nom/] {
+    rankdir=LR;
+
+    // Places
+    [for (p : place | net.petrielements->filter(place))]
+        [p.nom/] [ '[' /]label="[p.nom/] ([p.jetons/])", shape=circle];
+    [/for]
+
+    // Transitions
+    [for (t : transition | net.petrielements->filter(transition))]
+        [t.nom/] [ '[' /]label="[t.nom/]", shape=box, style=filled, fillcolor=gray];
+    [/for]
+
+    // Arcs
+    [for (a : arcsPonderes | net.petrielements->filter(arcsPonderes))]
+        [if (a.typeArc = arcType::placeToTransition)]
+            [a.place.nom/] -> [a.transition.nom/]
+            [if (a.poids > 1 or a.readArc)] [ '[' /]label="[if (a.readArc)]read[else][a.poids/][/if]"][/if];
+        [else]
+            [a.transition.nom/] -> [a.place.nom/]
+            [if (a.poids > 1 or a.readArc)] [ '[' /]label="[if (a.readArc)]read[else][a.poids/][/if]"][/if];
+        [/if]
+    [/for]
+}
+[/template]

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="petri" nsURI="http://petri" nsPrefix="petri">
+  <eClassifiers xsi:type="ecore:EClass" name="place" eSuperTypes="#//petriElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nom" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="jetons" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="linksToArcs" upperBound="-1"
+        eType="#//arcsPonderes" eOpposite="#//arcsPonderes/place"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="transition" eSuperTypes="#//petriElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nom" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="intervalle" eType="#//intervalle"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="linksToArcs" upperBound="-1"
+        eType="#//arcsPonderes" eOpposite="#//arcsPonderes/transition"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="arcsPonderes" eSuperTypes="#//petriElement">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="poids" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="arcType" lowerBound="1"
+        eType="#//arcType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="place" lowerBound="1" eType="#//place"
+        eOpposite="#//place/linksToArcs"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transition" lowerBound="1"
+        eType="#//transition" eOpposite="#//transition/linksToArcs"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="petriNet">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nom" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="petrielements" upperBound="-1"
+        eType="#//petriElement" containment="true" eOpposite="#//petriElement/petriNet"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="intervalle">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="binf" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="bsup" upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="petriElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="petriNet" lowerBound="1"
+        eType="#//petriNet" eOpposite="#//petriNet/petrielements"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="arcType">
+    <eLiterals name="placeToTransition"/>
+    <eLiterals name="transitionToPlace" value="1"/>
+  </eClassifiers>
+</ecore:EPackage>

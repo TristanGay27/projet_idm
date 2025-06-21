@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<petri:petriNet
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:petri="http://petri"
+    nom="ifip">
+  <petrielements
+      xsi:type="petri:place"
+      nom="p1"
+      jetons="1"
+      linksToArcs="//@petrielements.16 //@petrielements.17"/>
+  <petrielements
+      xsi:type="petri:place"
+      nom="p2"
+      jetons="2"
+      linksToArcs="//@petrielements.10 //@petrielements.21 //@petrielements.22"/>
+  <petrielements
+      xsi:type="petri:place"
+      nom="p3"
+      linksToArcs="//@petrielements.13 //@petrielements.14 //@petrielements.15 //@petrielements.18"/>
+  <petrielements
+      xsi:type="petri:place"
+      nom="p4"
+      linksToArcs="//@petrielements.19 //@petrielements.20"/>
+  <petrielements
+      xsi:type="petri:place"
+      nom="p5"
+      linksToArcs="//@petrielements.11 //@petrielements.12 //@petrielements.23"/>
+  <petrielements
+      xsi:type="petri:transition"
+      nom="t1"
+      linksToArcs="//@petrielements.17 //@petrielements.18 //@petrielements.19 //@petrielements.22 //@petrielements.23">
+    <intervalle
+        binf="4"
+        bsup="3"/>
+  </petrielements>
+  <petrielements
+      xsi:type="petri:transition"
+      nom="t2"
+      linksToArcs="//@petrielements.20 //@petrielements.21"/>
+  <petrielements
+      xsi:type="petri:transition"
+      nom="t3"
+      linksToArcs="//@petrielements.10 //@petrielements.11">
+    <intervalle
+        binf="1"/>
+  </petrielements>
+  <petrielements
+      xsi:type="petri:transition"
+      nom="t4"
+      linksToArcs="//@petrielements.12 //@petrielements.13 //@petrielements.14"/>
+  <petrielements
+      xsi:type="petri:transition"
+      nom="t5"
+      linksToArcs="//@petrielements.15 //@petrielements.16"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      typeArc="transitionToPlace"
+      place="//@petrielements.1"
+      transition="//@petrielements.7"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      place="//@petrielements.4"
+      transition="//@petrielements.7"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      place="//@petrielements.4"
+      transition="//@petrielements.8"
+      readArc="true"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      place="//@petrielements.2"
+      transition="//@petrielements.8"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      typeArc="transitionToPlace"
+      place="//@petrielements.2"
+      transition="//@petrielements.8"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      place="//@petrielements.2"
+      transition="//@petrielements.9"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      typeArc="transitionToPlace"
+      place="//@petrielements.0"
+      transition="//@petrielements.9"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      place="//@petrielements.0"
+      transition="//@petrielements.5"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      typeArc="transitionToPlace"
+      place="//@petrielements.2"
+      transition="//@petrielements.5"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      typeArc="transitionToPlace"
+      place="//@petrielements.3"
+      transition="//@petrielements.5"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      place="//@petrielements.3"
+      transition="//@petrielements.6"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      typeArc="transitionToPlace"
+      place="//@petrielements.1"
+      transition="//@petrielements.6"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      poids="2"
+      place="//@petrielements.1"
+      transition="//@petrielements.5"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      typeArc="transitionToPlace"
+      place="//@petrielements.4"
+      transition="//@petrielements.5"/>
+</petri:petriNet>

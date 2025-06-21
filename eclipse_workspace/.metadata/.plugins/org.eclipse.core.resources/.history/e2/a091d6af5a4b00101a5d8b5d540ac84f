@@ -1,0 +1,217 @@
+package simplepdl.validation;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
+
+import simplepdl.Guidance;
+import simplepdl.ProcessElement;
+import simplepdl.Ressources;
+import simplepdl.SimplepdlPackage;
+import simplepdl.WorkDefinition;
+import simplepdl.WorkSequence;
+import simplepdl.util.SimplepdlSwitch;
+
+/**
+ * Réalise la validation d'un EObject issu de SimplePDL (en théorie, d'un process).
+ * Cet classe visite le modÃ¨le et utilise les caseXXX pour rediriger l'algo vers la
+ * bonne méthode.
+ * Attention, lorsqu'une classe est un parent il faut aller faire la visite des enfants
+ * manuellement (cf. caseProcess typiquement).
+ * 
+ * La classe Switch exige un paramÃ¨tre de généricité (et gÃ¨re une partie de la visite Ã 
+ * base de comparaison Ã  null). Ici le paramÃ¨tre est un booléen mais en réalité on ne
+ * s'en sert pas...
+ * 
+ * @author Guillaume Dupont
+ * @version 0.1
+ */
+public class SimplePDLValidator extends SimplepdlSwitch<Boolean> {
+	/**
+	 * Expression réguliÃ¨re qui correspond Ã  un identifiant bien formé.
+	 */
+	private static final String IDENT_REGEX = "^[A-Za-z_][A-Za-z0-9_]*$";
+	
+	/**
+	 * Résultat de la validation (état interne réinitialisé Ã  chaque nouvelle validation).
+	 */
+	private ValidationResult result = null;
+	
+	/**
+	 * Construire un validateur
+	 */
+	public SimplePDLValidator() {}
+	
+	/**
+	 * Lancer la validation et compiler les résultats dans un ValidationResult.
+	 * Cette méthode se charge de créer un résultat de validation vide puis de
+	 *  visiter les process présents dans la ressource.
+	 * @param resource resource Ã  valider
+	 * @return résultat de validation
+	 */
+	public ValidationResult validate(Resource resource) {
+		this.result = new ValidationResult();
+		
+		for (EObject object : resource.getContents()) {
+			this.doSwitch(object);
+		}
+		
+		return this.result;
+	}
+
+
+	/**
+	 * Méthode appelée lorsque l'objet visité est un Process.
+	 * Cet méthode amorce aussi la visite des éléments enfants.
+	 * @param object élément visité
+	 * @return résultat de validation (null ici, ce qui permet de poursuivre la visite
+	 * vers les classes parentes, le cas échéant)
+	 */
+	@Override
+	public Boolean caseProcess(simplepdl.Process object) {
+		// Contraintes sur process
+		this.result.recordIfFailed(
+				object.getName() != null && object.getName().matches(IDENT_REGEX), 
+				object, 
+				"Le nom du process ne respecte pas les conventions Java");
+		
+		// Visite
+		for (ProcessElement pe : object.getProcesselement()) {
+			this.doSwitch(pe);
+		}
+		
+		return null;
+	}
+
+	/**
+	 * Méthode appelée lorsque l'objet visité est un ProcessElement (ou un sous type).
+	 * @param object élément visité
+	 * @return résultat de validation (null ici, ce qui permet de poursuivre la visite
+	 * vers les classes parentes, le cas échéant)
+	 */
+	@Override
+	public Boolean caseProcessElement(ProcessElement object) {
+		return null;
+	}
+
+	/**
+	 * Méthode appelée lorsque l'objet visité est une WorkDefinition.
+	 * @param object élément visité
+	 * @return résultat de validation (null ici, ce qui permet de poursuivre la visite
+	 * vers les classes parentes, le cas échéant)
+	 */
+	@Override
+	public Boolean caseWorkDefinition(WorkDefinition object) {
+		// Contraintes sur WD
+		this.result.recordIfFailed(
+				object.getName() != null || object.getName().matches(IDENT_REGEX), 
+				object, 
+				"Le nom de l'activité ne respecte pas les conventions Java");
+		
+		this.result.recordIfFailed(
+				object.getProcess().getProcesselement().stream()
+					.filter(p -> p.eClass().getClassifierID() == SimplepdlPackage.WORK_DEFINITION)
+					.allMatch(pe -> (pe.equals(object) || !((WorkDefinition) pe).getName().contains(object.getName()))),
+				object, 
+				"Le nom de l'activité (" + object.getName() + ") n'est pas unique");
+		
+		return null;
+	}
+
+	/**
+	 * Méthode appelée lorsque l'objet visité est une WorkSequence.
+	 * @param object élément visité
+	 * @return résultat de validation (null ici, ce qui permet de poursuivre la visite
+	 * vers les classes parentes, le cas échéant)
+	 */
+	@Override
+	public Boolean caseWorkSequence(WorkSequence object) {
+		// Contraintes sur WS
+		this.result.recordIfFailed(
+				!object.getPredecessor().equals(object.getSuccessor()), 
+				object,
+				"La dépendance relie l'activité " + object.getPredecessor().getName() + " Ã  elle-même");
+		
+		// Vérification des dépendances dupliquées exo3
+		// Vérification des dépendances dupliquées avec même linkType
+		Set<String> dependencies = new HashSet<>();
+		for (WorkSequence ws : object.getProcess().getProcesselement().stream()
+		        .filter(p -> p.eClass().getClassifierID() == SimplepdlPackage.WORK_SEQUENCE)
+		        .map(p -> (WorkSequence) p)
+		        .toList()) {
+
+		    String dependencyKey = ws.getPredecessor().getName()
+		                          + "-" + ws.getSuccessor().getName()
+		                          + "-" + ws.getLinkType().getName(); // Ajout du linkType dans la clé
+
+		    if (!dependencies.add(dependencyKey)) {
+		        this.result.recordError(ws, "Dépendance dupliquée entre "
+		            + ws.getPredecessor().getName()
+		            + " et "
+		            + ws.getSuccessor().getName()
+		            + " avec le type " + ws.getLinkType().getName());
+		    }
+		}
+
+
+		 return null;
+
+		 }
+
+	/**
+	 * Méthode appelée lorsque l'objet visité est une Guidance.
+	 * @param object élément visité
+	 * @return résultat de validation (null ici, ce qui permet de poursuivre la visite
+	 * vers les classes parentes, le cas échéant)
+	 */
+	@Override
+	public Boolean caseGuidance(Guidance object) {
+		this.result.recordIfFailed(
+				 object.getText() != 1,
+				 object,
+				 "Le texte de la guidance ne doit pas être vide");
+		return null;
+	}
+	
+	/**
+	 * 
+	 * @param object
+	 * @return
+	 */
+	@Override
+	public Boolean caseRessources(Ressources object) {
+		// Somme des quantités allouées
+		int totalAllocated = object.getAllouees().stream()
+			.mapToInt(a -> a.getNumber())
+			.sum();
+
+		this.result.recordIfFailed(
+			totalAllocated <= object.getQuantity(),
+			object,
+			"La ressource '" + object.getName() + "' est sur-allouée : " +
+			totalAllocated + " > " + object.getQuantity()
+		);
+
+		return null;
+	}
+
+	/**
+	 * Cas par défaut, lorsque l'objet visité ne correspond pas Ã  un des autres cas.
+	 * Cette méthode est aussi appelée lorsqu'une méthode renvoie null (comme une sorte de
+	 * fallback).
+	 * On pourrait implémenter le switch différemment, en ne renvoyant null dans les autres
+	 * méthodes que si la contrainte ne sert Ã  rien, et se servir de cette méthode pour
+	 * identifier les éléments étrangers (qui de toute faÃ§on ne doivent pas exister).
+	 * C'est aussi la méthode appelée si on ne redéfini pas un des caseXXX.
+	 * @param object objet visité
+	 * @return résultat, null ici
+	 */
+	@Override
+	public Boolean defaultCase(EObject object) {
+		return null;
+	}
+	
+	
+}

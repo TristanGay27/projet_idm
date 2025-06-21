@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<petri:petriNet
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:petri="http://petri"
+    xsi:schemaLocation="http://petri PetriNet.ecore"
+    nom="saisons">
+  <petrielements
+      xsi:type="petri:place"
+      nom="Printemps"
+      jetons="1"
+      linksToArcs="//@petrielements.8 //@petrielements.15"/>
+  <petrielements
+      xsi:type="petri:place"
+      nom="Eté"
+      linksToArcs="//@petrielements.9 //@petrielements.10"/>
+  <petrielements
+      xsi:type="petri:place"
+      nom="Automne"
+      linksToArcs="//@petrielements.11 //@petrielements.12"/>
+  <petrielements
+      xsi:type="petri:place"
+      nom="Hiver"
+      linksToArcs="//@petrielements.13 //@petrielements.14"/>
+  <petrielements
+      xsi:type="petri:transition"
+      nom="printToEte"
+      linksToArcs="//@petrielements.8 //@petrielements.9"/>
+  <petrielements
+      xsi:type="petri:transition"
+      nom="EteToAutomne"
+      linksToArcs="//@petrielements.10 //@petrielements.11"/>
+  <petrielements
+      xsi:type="petri:transition"
+      nom="AutomneToHiver"
+      linksToArcs="//@petrielements.12 //@petrielements.13"/>
+  <petrielements
+      xsi:type="petri:transition"
+      nom="HiverToPrint"
+      linksToArcs="//@petrielements.14 //@petrielements.15"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      place="//@petrielements.0"
+      transition="//@petrielements.4"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      typeArc="transitionToPlace"
+      place="//@petrielements.1"
+      transition="//@petrielements.4"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      place="//@petrielements.1"
+      transition="//@petrielements.5"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      typeArc="transitionToPlace"
+      place="//@petrielements.2"
+      transition="//@petrielements.5"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      place="//@petrielements.2"
+      transition="//@petrielements.6"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      typeArc="transitionToPlace"
+      place="//@petrielements.3"
+      transition="//@petrielements.6"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      place="//@petrielements.3"
+      transition="//@petrielements.7"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      typeArc="transitionToPlace"
+      place="//@petrielements.0"
+      transition="//@petrielements.7"/>
+</petri:petriNet>

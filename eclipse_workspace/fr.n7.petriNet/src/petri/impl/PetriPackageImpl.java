@@ -1,0 +1,500 @@
+/**
+ */
+package petri.impl;
+
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EEnum;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+
+import org.eclipse.emf.ecore.impl.EPackageImpl;
+
+import petri.PetriFactory;
+import petri.PetriPackage;
+import petri.arcType;
+import petri.arcsPonderes;
+import petri.intervalle;
+import petri.petriElement;
+import petri.petriNet;
+import petri.place;
+import petri.transition;
+
+/**
+ * <!-- begin-user-doc -->
+ * An implementation of the model <b>Package</b>.
+ * <!-- end-user-doc -->
+ * @generated
+ */
+public class PetriPackageImpl extends EPackageImpl implements PetriPackage {
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass placeEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass transitionEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass arcsPonderesEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass petriNetEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass intervalleEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass petriElementEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EEnum arcTypeEEnum = null;
+
+	/**
+	 * Creates an instance of the model <b>Package</b>, registered with
+	 * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
+	 * package URI value.
+	 * <p>Note: the correct way to create the package is via the static
+	 * factory method {@link #init init()}, which also performs
+	 * initialization of the package, or returns the registered package,
+	 * if one already exists.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.eclipse.emf.ecore.EPackage.Registry
+	 * @see petri.PetriPackage#eNS_URI
+	 * @see #init()
+	 * @generated
+	 */
+	private PetriPackageImpl() {
+		super(eNS_URI, PetriFactory.eINSTANCE);
+	}
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private static boolean isInited = false;
+
+	/**
+	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
+	 *
+	 * <p>This method is used to initialize {@link PetriPackage#eINSTANCE} when that field is accessed.
+	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #eNS_URI
+	 * @see #createPackageContents()
+	 * @see #initializePackageContents()
+	 * @generated
+	 */
+	public static PetriPackage init() {
+		if (isInited) return (PetriPackage)EPackage.Registry.INSTANCE.getEPackage(PetriPackage.eNS_URI);
+
+		// Obtain or create and register package
+		Object registeredPetriPackage = EPackage.Registry.INSTANCE.get(eNS_URI);
+		PetriPackageImpl thePetriPackage = registeredPetriPackage instanceof PetriPackageImpl ? (PetriPackageImpl)registeredPetriPackage : new PetriPackageImpl();
+
+		isInited = true;
+
+		// Create package meta-data objects
+		thePetriPackage.createPackageContents();
+
+		// Initialize created meta-data
+		thePetriPackage.initializePackageContents();
+
+		// Mark meta-data to indicate it can't be changed
+		thePetriPackage.freeze();
+
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(PetriPackage.eNS_URI, thePetriPackage);
+		return thePetriPackage;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getplace() {
+		return placeEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getplace_Nom() {
+		return (EAttribute)placeEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getplace_Jetons() {
+		return (EAttribute)placeEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getplace_LinksToArcs() {
+		return (EReference)placeEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass gettransition() {
+		return transitionEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute gettransition_Nom() {
+		return (EAttribute)transitionEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference gettransition_Intervalle() {
+		return (EReference)transitionEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference gettransition_LinksToArcs() {
+		return (EReference)transitionEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getarcsPonderes() {
+		return arcsPonderesEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getarcsPonderes_Poids() {
+		return (EAttribute)arcsPonderesEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getarcsPonderes_TypeArc() {
+		return (EAttribute)arcsPonderesEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getarcsPonderes_Place() {
+		return (EReference)arcsPonderesEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getarcsPonderes_Transition() {
+		return (EReference)arcsPonderesEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getarcsPonderes_ReadArc() {
+		return (EAttribute)arcsPonderesEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getpetriNet() {
+		return petriNetEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getpetriNet_Nom() {
+		return (EAttribute)petriNetEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getpetriNet_Petrielements() {
+		return (EReference)petriNetEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getintervalle() {
+		return intervalleEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getintervalle_Binf() {
+		return (EAttribute)intervalleEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EAttribute getintervalle_Bsup() {
+		return (EAttribute)intervalleEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getpetriElement() {
+		return petriElementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getpetriElement_PetriNet() {
+		return (EReference)petriElementEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EEnum getarcType() {
+		return arcTypeEEnum;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public PetriFactory getPetriFactory() {
+		return (PetriFactory)getEFactoryInstance();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private boolean isCreated = false;
+
+	/**
+	 * Creates the meta-model objects for the package.  This method is
+	 * guarded to have no affect on any invocation but its first.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void createPackageContents() {
+		if (isCreated) return;
+		isCreated = true;
+
+		// Create classes and their features
+		placeEClass = createEClass(PLACE);
+		createEAttribute(placeEClass, PLACE__NOM);
+		createEAttribute(placeEClass, PLACE__JETONS);
+		createEReference(placeEClass, PLACE__LINKS_TO_ARCS);
+
+		transitionEClass = createEClass(TRANSITION);
+		createEAttribute(transitionEClass, TRANSITION__NOM);
+		createEReference(transitionEClass, TRANSITION__INTERVALLE);
+		createEReference(transitionEClass, TRANSITION__LINKS_TO_ARCS);
+
+		arcsPonderesEClass = createEClass(ARCS_PONDERES);
+		createEAttribute(arcsPonderesEClass, ARCS_PONDERES__POIDS);
+		createEAttribute(arcsPonderesEClass, ARCS_PONDERES__TYPE_ARC);
+		createEReference(arcsPonderesEClass, ARCS_PONDERES__PLACE);
+		createEReference(arcsPonderesEClass, ARCS_PONDERES__TRANSITION);
+		createEAttribute(arcsPonderesEClass, ARCS_PONDERES__READ_ARC);
+
+		petriNetEClass = createEClass(PETRI_NET);
+		createEAttribute(petriNetEClass, PETRI_NET__NOM);
+		createEReference(petriNetEClass, PETRI_NET__PETRIELEMENTS);
+
+		intervalleEClass = createEClass(INTERVALLE);
+		createEAttribute(intervalleEClass, INTERVALLE__BINF);
+		createEAttribute(intervalleEClass, INTERVALLE__BSUP);
+
+		petriElementEClass = createEClass(PETRI_ELEMENT);
+		createEReference(petriElementEClass, PETRI_ELEMENT__PETRI_NET);
+
+		// Create enums
+		arcTypeEEnum = createEEnum(ARC_TYPE);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private boolean isInitialized = false;
+
+	/**
+	 * Complete the initialization of the package and its meta-model.  This
+	 * method is guarded to have no affect on any invocation but its first.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void initializePackageContents() {
+		if (isInitialized) return;
+		isInitialized = true;
+
+		// Initialize package
+		setName(eNAME);
+		setNsPrefix(eNS_PREFIX);
+		setNsURI(eNS_URI);
+
+		// Create type parameters
+
+		// Set bounds for type parameters
+
+		// Add supertypes to classes
+		placeEClass.getESuperTypes().add(this.getpetriElement());
+		transitionEClass.getESuperTypes().add(this.getpetriElement());
+		arcsPonderesEClass.getESuperTypes().add(this.getpetriElement());
+
+		// Initialize classes, features, and operations; add parameters
+		initEClass(placeEClass, place.class, "place", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getplace_Nom(), ecorePackage.getEString(), "nom", null, 1, 1, place.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getplace_Jetons(), ecorePackage.getEInt(), "jetons", null, 1, 1, place.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getplace_LinksToArcs(), this.getarcsPonderes(), this.getarcsPonderes_Place(), "linksToArcs", null, 0, -1, place.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(transitionEClass, transition.class, "transition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(gettransition_Nom(), ecorePackage.getEString(), "nom", null, 1, 1, transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(gettransition_Intervalle(), this.getintervalle(), null, "intervalle", null, 0, 1, transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(gettransition_LinksToArcs(), this.getarcsPonderes(), this.getarcsPonderes_Transition(), "linksToArcs", null, 0, -1, transition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(arcsPonderesEClass, arcsPonderes.class, "arcsPonderes", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getarcsPonderes_Poids(), ecorePackage.getEInt(), "poids", "1", 1, 1, arcsPonderes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getarcsPonderes_TypeArc(), this.getarcType(), "typeArc", null, 1, 1, arcsPonderes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getarcsPonderes_Place(), this.getplace(), this.getplace_LinksToArcs(), "place", null, 1, 1, arcsPonderes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getarcsPonderes_Transition(), this.gettransition(), this.gettransition_LinksToArcs(), "transition", null, 1, 1, arcsPonderes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getarcsPonderes_ReadArc(), ecorePackage.getEBoolean(), "readArc", null, 1, 1, arcsPonderes.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(petriNetEClass, petriNet.class, "petriNet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getpetriNet_Nom(), ecorePackage.getEString(), "nom", null, 1, 1, petriNet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getpetriNet_Petrielements(), this.getpetriElement(), this.getpetriElement_PetriNet(), "petrielements", null, 0, -1, petriNet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(intervalleEClass, intervalle.class, "intervalle", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getintervalle_Binf(), ecorePackage.getEInt(), "binf", null, 1, 1, intervalle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getintervalle_Bsup(), ecorePackage.getEIntegerObject(), "bsup", null, 0, 1, intervalle.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(petriElementEClass, petriElement.class, "petriElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getpetriElement_PetriNet(), this.getpetriNet(), this.getpetriNet_Petrielements(), "petriNet", null, 1, 1, petriElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		// Initialize enums and add enum literals
+		initEEnum(arcTypeEEnum, arcType.class, "arcType");
+		addEEnumLiteral(arcTypeEEnum, arcType.PLACE_TO_TRANSITION);
+		addEEnumLiteral(arcTypeEEnum, arcType.TRANSITION_TO_PLACE);
+
+		// Create resource
+		createResource(eNS_URI);
+	}
+
+} //PetriPackageImpl

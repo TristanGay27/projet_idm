@@ -1,0 +1,57 @@
+-- @nsURI SimplePDL=http://simplepdl
+-- @nsURI PDL1=http://www.n7.fr/PDL1
+
+module pdl1tosimplepdl;
+create OUT : SimplePDL from IN : PDL1;
+
+-- Helper de conversion du type de lien
+helper def : convertLinkType(x : PDL1!WorkSequenceType) : SimplePDL!WorkSequenceType =
+  if x = #s2s then #startToStart
+  else if x = #s2f then #startToFinish
+  else if x = #f2s then #finishToStart
+  else #finishToFinish
+  endif endif endif;
+
+-- Transformation d’un Processus
+rule XProc2SProc {
+  from
+    xp : PDL1!Process
+  to
+    sp : SimplePDL!Process (
+      name <- xp.name,
+      processelement <- xp.processElements
+    )
+}
+
+-- Transformation d’une WorkDefinition
+rule XWD2SWD {
+  from
+    xwd : PDL1!WorkDefinition
+  to
+    swd : SimplePDL!WorkDefinition (
+      name <- xwd.name,
+      ressources <- xwd.ressources
+    )
+}
+
+-- Transformation d’une WorkSequence
+rule XWS2SWS {
+  from
+    xws : PDL1!WorkSequence
+  to
+    sws : SimplePDL!WorkSequence (
+      linkType <- thisModule.convertLinkType(xws.linkType),
+      predecessor <- xws.predecessor,
+      successor <- xws.successor
+    )
+}
+
+-- Transformation d’une guidance
+rule XG2SG {
+  from
+    xg : PDL1!Guidance
+  to
+    sg : SimplePDL!Guidance (
+      text <- xg.texte
+    )
+}

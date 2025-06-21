@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<petri:petriNet
+    xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:petri="http://petri"
+    nom="ifip">
+  <petrielements
+      xsi:type="petri:place"
+      nom="p1"
+      jetons="1"/>
+  <petrielements
+      xsi:type="petri:place"
+      nom="p2"
+      jetons="2"
+      linksToArcs="//@petrielements.10"/>
+  <petrielements
+      xsi:type="petri:place"
+      nom="p3"
+      linksToArcs="//@petrielements.13 //@petrielements.14 //@petrielements.15"/>
+  <petrielements
+      xsi:type="petri:place"
+      nom="p4"/>
+  <petrielements
+      xsi:type="petri:place"
+      nom="p5"
+      linksToArcs="//@petrielements.11 //@petrielements.12"/>
+  <petrielements
+      xsi:type="petri:transition"
+      nom="t1"/>
+  <petrielements
+      xsi:type="petri:transition"
+      nom="t2"/>
+  <petrielements
+      xsi:type="petri:transition"
+      nom="t3"
+      linksToArcs="//@petrielements.10 //@petrielements.11"/>
+  <petrielements
+      xsi:type="petri:transition"
+      nom="t4"
+      linksToArcs="//@petrielements.12 //@petrielements.13 //@petrielements.14"/>
+  <petrielements
+      xsi:type="petri:transition"
+      nom="t5"
+      linksToArcs="//@petrielements.15"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      typeArc="transitionToPlace"
+      place="//@petrielements.1"
+      transition="//@petrielements.7"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      place="//@petrielements.4"
+      transition="//@petrielements.7"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      place="//@petrielements.4"
+      transition="//@petrielements.8"
+      readArc="true"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      place="//@petrielements.2"
+      transition="//@petrielements.8"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      typeArc="transitionToPlace"
+      place="//@petrielements.2"
+      transition="//@petrielements.8"/>
+  <petrielements
+      xsi:type="petri:arcsPonderes"
+      place="//@petrielements.2"
+      transition="//@petrielements.9"/>
+</petri:petriNet>

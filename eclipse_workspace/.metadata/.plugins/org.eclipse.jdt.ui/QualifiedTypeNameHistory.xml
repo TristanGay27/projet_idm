@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="simplepdl.impl.SimplepdlPackageImpl"/>
+    <fullyQualifiedTypeName name="petri.transition"/>
+    <fullyQualifiedTypeName name="petri.petriNet"/>
+    <fullyQualifiedTypeName name="petri.petriElement"/>
+    <fullyQualifiedTypeName name="petri.place"/>
+    <fullyQualifiedTypeName name="petri.PetriPackage"/>
+    <fullyQualifiedTypeName name="petri.arcsPonderes"/>
+    <fullyQualifiedTypeName name="petri.impl.PetriPackageImpl"/>
+    <fullyQualifiedTypeName name="petri.intervalle"/>
+    <fullyQualifiedTypeName name="simplepdl.Ressources"/>
+    <fullyQualifiedTypeName name="simplepdl.RessourcesAllouees"/>
+</qualifiedTypeNameHistroy>

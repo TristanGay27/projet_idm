@@ -1,0 +1,107 @@
+-- @path SimplePDL=/fr.n7.simplePDL/SimplePDL.ecore
+-- @path PetriNet=/fr.n7.petriNet/PetriNet.ecore
+
+module simplepdltopetri;
+create OUT : Petri from IN : SimplePDL;
+
+-- Règle principale : Process -> petriNet
+rule Process2PetriNet {
+    from p : SimplePDL!Process
+    to net : Petri!petriNet (
+        nom <- p.name,
+        petrielements <- p.processelement->collect(e | thisModule.mapElement(e))->flatten()
+    )
+}
+
+-- Helper pour retrouver le Process d’un ProcessElement
+helper context SimplePDL!ProcessElement def: getProcess() : SimplePDL!Process =
+    SimplePDL!Process.allInstances()->select(p | p.processelement->includes(self))->first();
+
+-- Helper de routage dynamique (remplace lazy rule)
+helper def: mapElement(e : SimplePDL!ProcessElement) : Sequence(Petri!petriElement) =
+    if e.oclIsTypeOf(SimplePDL!WorkDefinition) then
+        thisModule.WorkDefinition2Petri(e.oclAsType(SimplePDL!WorkDefinition))
+    else if e.oclIsTypeOf(SimplePDL!WorkSequence) then
+        Sequence { thisModule.WorkSequence2Petri(e.oclAsType(SimplePDL!WorkSequence)) }
+    else
+        Sequence {}
+    endif endif
+;
+
+-- WorkDefinition → 3 places, 2 transitions, 4 arcs
+helper def: WorkDefinition2Petri(wd : SimplePDL!WorkDefinition) : Sequence(Petri!petriElement) =
+    let
+        ready : Petri!place = thisModule.createPlace(wd.name + '_ready', 1) &&
+        started : Petri!place = thisModule.createPlace(wd.name + '_started', 0) &&
+        finished : Petri!place = thisModule.createPlace(wd.name + '_finished', 0),
+
+        t_start : Petri!transition = thisModule.createTransition('start_' + wd.name),
+        t_finish : Petri!transition = thisModule.createTransition('finish_' + wd.name),
+
+        arc1 : Petri!arcsPonderes = thisModule.createArc(ready, t_start, #placeToTransition),
+        arc2 : Petri!arcsPonderes = thisModule.createArc(started, t_start, #transitionToPlace),
+        arc3 : Petri!arcsPonderes = thisModule.createArc(started, t_finish, #placeToTransition),
+        arc4 : Petri!arcsPonderes = thisModule.createArc(finished, t_finish, #transitionToPlace)
+    in
+        Sequence { ready, started, finished, t_start, t_finish, arc1, arc2, arc3, arc4 }
+;
+
+-- WorkSequence → arc conditionnel selon type
+rule WorkSequence2Petri {
+    from ws : SimplePDL!WorkSequence
+    to arc : Petri!arcsPonderes (
+        place <- thisModule.getPlace(ws),
+        transition <- thisModule.getTransition(ws),
+        poids <- 1,
+        readArc <- false,
+        typeArc <- #placeToTransition
+    )
+}
+
+-- Helpers pour noms selon linkType
+helper context SimplePDL!WorkSequence def: getPlaceName() : String =
+    if self.linkType = #startToStart or self.linkType = #startToFinish then
+        self.predecessor.name + '_started'
+    else
+        self.predecessor.name + '_finished'
+    endif;
+
+helper context SimplePDL!WorkSequence def: getTransitionName() : String =
+    if self.linkType = #startToStart or self.linkType = #finishToStart then
+        'start_' + self.successor.name
+    else
+        'finish_' + self.successor.name
+    endif;
+
+-- Résolution de la place et de la transition selon le nom
+helper def: getPlace(ws : SimplePDL!WorkSequence) : Petri!place =
+    Petri!place.allInstances()->any(p | p.nom = ws.getPlaceName());
+
+helper def: getTransition(ws : SimplePDL!WorkSequence) : Petri!transition =
+    Petri!transition.allInstances()->any(t | t.nom = ws.getTransitionName());
+
+-- Création factorisée d’une place
+helper def: createPlace(n : String, tokens : Integer) : Petri!place =
+    let p : Petri!place = thisModule.new Petri!place in {
+        p.nom <- n;
+        p.jetons <- tokens;
+        p
+    };
+
+-- Création factorisée d’une transition
+helper def: createTransition(n : String) : Petri!transition =
+    let t : Petri!transition = thisModule.new Petri!transition in {
+        t.nom <- n;
+        t
+    };
+
+-- Création factorisée d’un arc pondéré
+helper def: createArc(pl : Petri!place, tr : Petri!transition, kind : Petri!arcType) : Petri!arcsPonderes =
+    let arc : Petri!arcsPonderes = thisModule.new Petri!arcsPonderes in {
+        arc.place <- pl;
+        arc.transition <- tr;
+        arc.poids <- 1;
+        arc.readArc <- false;
+        arc.typeArc <- kind;
+        arc
+    };
