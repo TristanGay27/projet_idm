@@ -4,4 +4,12 @@ digraph model {
 		Programmation -> RedactionTests [arrowhead=vee label=f2f] 
 		Conception -> RedactionDoc [arrowhead=vee label=s2s] 
 		Conception -> RedactionDoc [arrowhead=vee label=f2f] 
+
+
+  // Ressources
+    Ordinateurs [shape=box, style=filled, fillcolor=lightgray, label="Ordinateurs (10)"]
+
+  // RessourcesAllouees
+      RedactionDoc -> Ordinateurs [style=dashed, label="2"]
+      Conception -> Ordinateurs [style=dashed, label="3"]
 }

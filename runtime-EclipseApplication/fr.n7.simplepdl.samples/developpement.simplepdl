@@ -14,4 +14,5 @@
   <processelement xsi:type="simplepdl:WorkDefinition" linksToPredecessors="//@processelement.12" name="testAjout2"/>
   <processelement xsi:type="simplepdl:WorkSequence" predecessor="//@processelement.10" successor="//@processelement.11"/>
   <processelement xsi:type="simplepdl:Guidance" elements="//@processelement.10" text="test ajout guidance"/>
+  <processelement xsi:type="simplepdl:WorkSequence"/>
 </simplepdl:Process>

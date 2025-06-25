@@ -11,6 +11,19 @@ digraph [aProcess.name/] {
 		[ws.predecessor.name/] -> [wd.name/] [ '[' /]arrowhead=vee label=[ws.linkType.toDOTLabel()/][ ']' /] 
     [/for]
   [/for]
+
+
+  // Ressources
+  [for (r : Ressources | aProcess.processelement->select(e | e.oclIsTypeOf(Ressources))->collect(e | e.oclAsType(Ressources)))]
+    [r.name/] [ '[' /]shape=box, style=filled, fillcolor=lightgray, label="[r.name/] ([if r.quantity.oclIsUndefined()]∞[else][r.quantity/][/if])"]
+  [/for]
+
+  // RessourcesAllouees
+  [for (wd : WorkDefinition | aProcess.getWDs())]
+    [for (alloc : RessourcesAllouees | wd.ressources)]
+      [wd.name/] -> [alloc.ressources.name/] [ '[' /]style=dashed, label="[alloc.number/]"]
+    [/for]
+  [/for]
 [/let]
 }
 [/file]
